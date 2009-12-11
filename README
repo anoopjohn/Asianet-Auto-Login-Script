@@ -1,0 +1,53 @@
+-------------------------------------------------------------
+Asianet Auto Login Script
+Copyright (c) 2009 Anoop John, Prasad S. R. (www.zyxware.com)"
+-------------------------------------------------------------"
+Usage: auto-login.sh [auto|startup|free|logout|*]
+  auto    - Logs in if not logged in, else logs out. 
+  startup - Startup mode, keeps a connection always on.
+  free    - Keeps connection alive only during free download hours.
+  logout  - Disconnect.
+  *       - Connect.
+
+Features
+--------
+- Automatically connect to Asianet Dataline without having to sign in via the
+  browser.
+- In startup and free mode the script will keep the connection alive.
+- The script will automatically reconnect if connection breaks because of a 
+  power failure or a line problem.
+- In free mode the script will call any related startup and shutdown scripts 
+  placed inside the ~/.auto-login/startup and ~/.auto-login/shutdown folders.
+
+Setup Instructions
+------------------
+a) Copy script to your favorite scripts folder.
+b) Edit script to update username and password with your Asianet login
+   information.
+c) Add script to your startup process. See different ways of using the script
+   below to know more.
+d) If you want to start and stop other applications at the time of starting the 
+   script then create a folder ~/.auto-login and inside that create sub-folders 
+   startup and shutdown. Place other scripts that have to be called during 
+   startup and shutdown of this script into the respective folders. Make sure 
+   that these scripts have their executable bit set.
+
+Different ways of using the script
+----------------------------------
+1) Add a shortcut to your task bar to launch the script with the parameter 
+   "auto". Use this shortcut to start the connection with one click and stop the 
+   connection with one click. Remember that the connection will time out if 
+   there is no activity. But that should not be a problem because you can 
+   connect again with a single click.
+2) Add the script to your startup process with parameter "startup". This will 
+   keep the script running in the background and the script will keep the 
+   connection alive with keep-alive requests.
+3) Add the script to your startup process with parameter "free". This will keep 
+   the script running in the background and the script will connect only during
+   the free download hours and then it will keep the connection alive with 
+   keep-alive requests until the free time ends. When free time ends it will 
+   disconnect the connection. In this mode the script will also run any related 
+   startup and shutdown scripts placed inside the ~/.auto-login/startup and 
+   ~/.auto-login/shutdown folders.
+   
+
