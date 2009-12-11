@@ -3,6 +3,7 @@
 # Auto login to asianet connection
 # Copyright (c) 2009 Anoop John, Zyxware Technologies (www.zyxware.com)
 # Copyright (c) 2009 Prasad S. R., Zyxware Technologies (www.zyxware.com)
+# http://github.com/anoopjohn/Asianet-Auto-Login-Script
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -392,7 +393,7 @@ case "$1" in
     ;;
   "--help")
     echo "-------------------------------------------------------------"
-    echo "Asianet Auto Login Script"
+    echo "Asianet Auto Login Script v.1.0"
     echo "Copyright (c) 2009 Anoop John, Prasad S. R. (www.zyxware.com)"
     echo "-------------------------------------------------------------"
     echo "Usage: "
