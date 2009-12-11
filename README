@@ -1,7 +1,7 @@
 -------------------------------------------------------------
 Asianet Auto Login Script
-Copyright (c) 2009 Anoop John, Prasad S. R. (www.zyxware.com)"
--------------------------------------------------------------"
+Copyright (c) 2009 Anoop John, Prasad S. R. (www.zyxware.com)
+-------------------------------------------------------------
 Usage: auto-login.sh [auto|startup|free|logout|*]
   auto    - Logs in if not logged in, else logs out. 
   startup - Startup mode, keeps a connection always on.
