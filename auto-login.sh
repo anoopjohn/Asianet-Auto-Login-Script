@@ -55,11 +55,13 @@ else
   debug_log=/dev/null
 fi
 
-# Create log file folder if not exist
+# Create program folder if not exist
 
 if [ ! -d $program_folder ]; 
 then
   mkdir $program_folder
+  mkdir $program_folder/startup
+  mkdir $program_folder/shutdown
 fi
 if [ ! -d $program_folder ]; 
 then
