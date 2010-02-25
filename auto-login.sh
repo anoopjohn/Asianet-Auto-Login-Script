@@ -38,6 +38,7 @@ free_stop="07:50"
 # Default connection time out interval
 conn_timeout=300
 ping_interval=290
+ntp_wait=310
 
 # Initialize file paths
 
@@ -55,7 +56,7 @@ else
   debug_log=/dev/null
 fi
 
-# Create program folder if not exist
+# Create log file folder if not exist
 
 if [ ! -d $program_folder ]; 
 then
@@ -235,7 +236,22 @@ function is_still_free_download_time
 
 #
 #-END-FUNCTIONS---------------------------------------------------------
-
+if [ "$1" == "free" ];
+then 
+  if ! is_connected;
+  then
+    # If not connected then connect
+    connect
+    # Wait for an ntpdate call from cron
+    sleep $ntp_wait
+    disconnect
+    sleep 1
+  else
+    # Wait for an ntpdate call from cron
+    sleep $ntp_wait
+    sleep 1
+  fi  
+fi
 case "$1" in
   "auto"|"startup"|"free")
     # If this is a startup run wait 5 minutes to make sure that the last connection
@@ -257,8 +273,11 @@ case "$1" in
         fi
         sleep $sleep_time
       else
-        log "Sleeping for $conn_timeout second(s) for old connection (if any) to time out."
-        sleep $conn_timeout
+        if [ "$2" != "nowait" ];
+        then 
+          log "Sleeping for $conn_timeout second(s) for old connection (if any) to time out."
+          sleep $conn_timeout
+        fi  
       fi    
     fi 
     # Check if connected and connect if not
@@ -395,16 +414,17 @@ case "$1" in
     ;;
   "--help")
     echo "-------------------------------------------------------------"
-    echo "Asianet Auto Login Script v.1.0"
+    echo "Asianet Auto Login Script"
     echo "Copyright (c) 2009 Anoop John, Prasad S. R. (www.zyxware.com)"
     echo "-------------------------------------------------------------"
     echo "Usage: "
-    echo `basename $0` "[auto|startup|free|logout|*]"
+    echo `basename $0` "[auto|startup|free|logout|*][nowait]"
     echo "  auto    - Logs in if not logged in, else logs out."
     echo "  startup - Startup mode, keeps a connection always on."
     echo "  free    - Keeps connection alive only during free download hours."
     echo "  logout  - Disconnect."
     echo "  *       - Connect."
+    echo "  nowait  - Do not wait for any connection to expire."
     ;;
   *)
     # Check if already connected and proceed if not connected
