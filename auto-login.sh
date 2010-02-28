@@ -114,7 +114,7 @@ function get_asianet_conn_url {
   if ! is_connected;
   then
     # The wget strategy will work only if user is not already connected to the net
-    asianet_conn_url=`wget --quiet -O - www.zyxware.com|grep 'action='|sed 's/\(.*action="\)\(.*\)">/\2/g'`
+    asianet_conn_url=`wget --quiet --no-check-certificate -O - www.zyxware.com|grep 'action='|sed 's/\(.*action="\)\(.*\)">/\2/g'`
     # Save the URL so that we can use the same URL to log out
     log $asianet_conn_url | tee $lock_file
   else
