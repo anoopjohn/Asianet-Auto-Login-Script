@@ -31,6 +31,9 @@ d) If you want to start and stop other applications at the time of starting the
    startup and shutdown. Place other scripts that have to be called during 
    startup and shutdown of this script into the respective folders. Make sure 
    that these scripts have their executable bit set.
+e) To ensure that your computer clock is running correctly you might want to 
+   run a cron job as root user to run ntpdate twice a day perhaps before the 
+   free time starts and before the free time ends
 
 Different ways of using the script
 ----------------------------------

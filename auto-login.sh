@@ -1,7 +1,7 @@
 #!/bin/bash
 # ----------------------------------------------------------------------
 # Auto login to asianet connection
-# Copyright (c) 2009 Anoop John, Zyxware Technologies (www.zyxware.com)
+# Copyright (c) 2009-12 Anoop John, Zyxware Technologies (www.zyxware.com)
 # Copyright (c) 2009 Prasad S. R., Zyxware Technologies (www.zyxware.com)
 # http://github.com/anoopjohn/Asianet-Auto-Login-Script
 #
@@ -423,10 +423,10 @@ case "$1" in
     fi
     ;;
   "--help")
-    echo "-------------------------------------------------------------"
+    echo "----------------------------------------------------------------"
     echo "Asianet Auto Login Script"
-    echo "Copyright (c) 2009 Anoop John, Prasad S. R. (www.zyxware.com)"
-    echo "-------------------------------------------------------------"
+    echo "Copyright (c) 2009-12 Anoop John, Prasad S. R. (www.zyxware.com)"
+    echo "----------------------------------------------------------------"
     echo "Usage: "
     echo `basename $0` "[auto|startup|free|logout|*][nowait]"
     echo "  auto    - Logs in if not logged in, else logs out."
