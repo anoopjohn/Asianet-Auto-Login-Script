@@ -16,22 +16,20 @@
 # ----------------------------------------------------------------------
 # Debug settings
 #
-# set to 1|0, 0 will not record wget outputs
+# set to 1|0, 0 will not record curl outputs
 debug=0 
 # verbose 1|0, 0 will not output to screen
 verbose=1
 
-pathtotestfile="http://example.com/file.html"
-sizeoftestfile=20
-
+pathtotestfile="http://www.google.co.in"
 
 # Initialize the scirpt settings
 #
 # A bit unsecure because you have to store passwords here.
 # If you can see the script then probably you should be able to see 
 # the password as well 
-username=USERNAME
-password=PASSWORD
+username=<username>
+password=<password>
 user_agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5"
 program_folder=~/.auto-login
 # Enter time in 24 hr format.
@@ -49,6 +47,14 @@ lock_file=$program_folder/conn_url
 log_file=$program_folder/conn.log
 debug_log_file=$program_folder/debug.log
 script_folder=$program_folder
+
+# This program requires curl. Test for that
+which curl > /dev/null
+if [ $? = 1 ];
+then
+  echo "Please install curl to run this application"
+  exit;
+fi
 
 # If debug is enabled log all output from the commands 
 # else throw to null
@@ -98,9 +104,9 @@ function log_to_file {
 #
 function is_connected {
   #if true we should get the content of the file as return value
-  test=`wget --quiet -O - $pathtotestfile|wc -c`
-  
-  if [ $test = $sizeoftestfile ];
+  curl --connect-timeout 30 --silent -A "$user_agent" $pathtotestfile | grep google.co.in > /dev/null
+  test=`echo $?`
+  if [ $test = 0 ];
   then
     return 0
   else
@@ -116,8 +122,8 @@ function get_asianet_conn_url {
   # If not connected then try any URL and get the redirection URL
   if ! is_connected;
   then
-    # The wget strategy will work only if user is not already connected to the net
-    asianet_conn_url=`wget --quiet --no-check-certificate -O - $pathtotestfile|grep 'action='|sed 's/\(.*action="\)\(.*\)">/\2/g'`
+    # The curl strategy will work only if user is not already connected to the net
+    asianet_conn_url=`curl --silent -L -A "$user_agent" $pathtotestfile|grep 'action='|sed 's/\(.*action="\)\(.*\)">/\2/g'`
     # Save the URL so that we can use the same URL to log out
     log $asianet_conn_url | tee $lock_file
   else
@@ -239,6 +245,7 @@ function is_still_free_download_time
 
 #
 #-END-FUNCTIONS---------------------------------------------------------
+
 if [ "$1" == "free" ];
 then 
   if ! is_connected;
